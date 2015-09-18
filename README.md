@@ -12,7 +12,7 @@ As this is software in its infancy, there aren't any pre-packaged distributions 
 ```bash
 git clone https://github.com/noahlange/prosely.git
 cd prosely
-npm install
+npm install && bower install
 ./node_modules/.bin/electron-rebuild
 ```
 
