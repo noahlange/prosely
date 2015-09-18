@@ -27,9 +27,9 @@ var defaults = {
 };
 
 // Load configuration file
-var configPath = path.resolve(__dirname, '../prosely.json');
-var configFile = fs.readFileSync(configPath).toString() || defaults;
-var configOpts = JSON.parse(configFile);
+var configPath = __dirname + '/prosely.json';
+var configFile = fs.readFileSync(configPath);
+var configOpts = configFile ? JSON.parse(configFile.toString()) : defaults;
 
 // Initialize editor
 
