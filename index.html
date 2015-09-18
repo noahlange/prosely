@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=640">
+
+    <link rel="stylesheet" href="stylesheets/core.css" media="screen">
+    <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-device-width:640px)">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+
+    <script type="text/javascript" src="javascripts/modernizr.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/headsmart.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#main_content').headsmart()
+      })
+    </script>
+    <title>Prosely by noahlange</title>
+  </head>
+
+  <body>
+    <a id="forkme_banner" href="https://github.com/noahlange/prosely">View on GitHub</a>
+    <div class="shell">
+
+      <header>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <h1>Prosely</h1>
+            <h2>A prose-linting Markdown editor for the 21st century.</h2>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+      </header>
+
+      <section id="downloads">
+        <span class="inner">
+          <a href="https://github.com/noahlange/prosely/zipball/master" class="zip"><em>download</em> .ZIP</a><a href="https://github.com/noahlange/prosely/tarball/master" class="tgz"><em>download</em> .TGZ</a>
+        </span>
+      </section>
+
+
+      <span class="banner-fix"></span>
+
+
+      <section id="main_content">
+        <h1>
+<a id="prosely" class="anchor" href="#prosely" aria-hidden="true"><span class="octicon octicon-link"></span></a>Prosely</h1>
+
+<blockquote>
+<p>Text editing for the twenty-first century</p>
+</blockquote>
+
+<p>Prosely is a Markdown editor written in JavaScript and built with the Electron cross-platform application framework. It's powered by the <a href="http://musicbed.github.io/MirrorMark/">MirrorMark</a> editor (MIT licensed) and the <a href="https://github.com/btford/write-good">WriteGood</a> proofreading library (MIT licensed).</p>
+
+<p>WriteGood lints your prose as you work, offering feedback from over a dozen style checks. MirrorMark gives you all the functionality you expect from a general purpose Markdown editor - formatting, live preview, etc.</p>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>As this is software in its infancy, there aren't any pre-packaged distributions of Prosely; you'll have to build it manually via git and npm. If you don't have those installed already, get out of here and install those first. Note that you'll need to rebuild dependencies with <code>electron-rebuild</code>.</p>
+
+<div class="highlight highlight-source-shell"><pre>git clone https://github.com/noahlange/prosely.git
+<span class="pl-c1">cd</span> prosely
+npm install <span class="pl-k">&amp;&amp;</span> bower install
+./node_modules/.bin/electron-rebuild</pre></div>
+
+<p>Once everything's put together, running Prosely is simple.</p>
+
+<div class="highlight highlight-source-shell"><pre>electron <span class="pl-c1">.</span></pre></div>
+
+<h2>
+<a id="contributions" class="anchor" href="#contributions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributions</h2>
+
+<p>I'd be more than happy to work on this with other folks. Just start hacking away.</p>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>MIT</p>
+      </section>
+
+      <footer>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <p>this project by <a href="https://github.com/noahlange">noahlange</a> can be found on <a href="https://github.com/noahlange/prosely">GitHub</a></p>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+        <p>Generated with <a href="https://pages.github.com">GitHub Pages</a> using Merlot</p>
+        <span class="octocat"></span>
+      </footer>
+
+    </div>
+
+    
+  </body>
+</html>
