@@ -1,0 +1,21 @@
+{
+  "name": "proseify",
+  "version": "0.0.0",
+  "authors": [
+    "noahlange <noahrlange@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "codemirror": "~5.6.0",
+    "font-awesome": "~4.4.0",
+    "lodash": "~3.10.1",
+    "MirrorMark": "mirrormark#~1.0.1"
+  }
+}

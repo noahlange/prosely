@@ -1,0 +1,21 @@
+{
+  "prosely": {},
+  "writeGood": {
+    "illusion" : true,
+    "so" : true,
+    "thereIs": true,
+    "passive": true,
+    "weasel": true,
+    "adverb": true,
+    "tooWordy": true,
+    "cliches": true,
+    "frankenwords": true,
+    "fleschKincaid": {
+      "level": 15 
+    },
+    "spelling": true,
+    "filler": true,
+    "hedge": true,
+    "buzzword": true
+  }
+}

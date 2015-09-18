@@ -1,0 +1,591 @@
+/* BASICS */
+
+.CodeMirror {
+  /* Set height, width, borders, and global font properties here */
+  font-family: monospace;
+  height: 300px;
+  color: black;
+}
+
+/* PADDING */
+
+.CodeMirror-lines {
+  padding: 4px 0; /* Vertical padding around content */
+}
+.CodeMirror pre {
+  padding: 0 4px; /* Horizontal padding of content */
+}
+
+.CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler {
+  background-color: white; /* The little square between H and V scrollbars */
+}
+
+/* GUTTER */
+
+.CodeMirror-gutters {
+  border-right: 1px solid #ddd;
+  background-color: #f7f7f7;
+  white-space: nowrap;
+}
+.CodeMirror-linenumbers {}
+.CodeMirror-linenumber {
+  padding: 0 3px 0 5px;
+  min-width: 20px;
+  text-align: right;
+  color: #999;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+.CodeMirror-guttermarker { color: black; }
+.CodeMirror-guttermarker-subtle { color: #999; }
+
+/* CURSOR */
+
+.CodeMirror div.CodeMirror-cursor {
+  border-left: 1px solid #dcdccc;
+}
+/* Shown when moving in bi-directional text */
+.CodeMirror div.CodeMirror-secondarycursor {
+  border-left: 1px solid silver;
+}
+.CodeMirror.cm-fat-cursor div.CodeMirror-cursor {
+  width: auto;
+  border: 0;
+  background: #7e7;
+}
+.CodeMirror.cm-fat-cursor div.CodeMirror-cursors {
+  z-index: 1;
+}
+
+.cm-animate-fat-cursor {
+  width: auto;
+  border: 0;
+  -webkit-animation: blink 1.06s steps(1) infinite;
+  -moz-animation: blink 1.06s steps(1) infinite;
+  animation: blink 1.06s steps(1) infinite;
+}
+@-moz-keyframes blink {
+  0% { background: #7e7; }
+  50% { background: none; }
+  100% { background: #7e7; }
+}
+@-webkit-keyframes blink {
+  0% { background: #7e7; }
+  50% { background: none; }
+  100% { background: #7e7; }
+}
+@keyframes blink {
+  0% { background: #7e7; }
+  50% { background: none; }
+  100% { background: #7e7; }
+}
+
+/* Can style cursor different in overwrite (non-insert) mode */
+div.CodeMirror-overwrite div.CodeMirror-cursor {}
+
+.cm-tab { display: inline-block; text-decoration: inherit; }
+
+.CodeMirror-ruler {
+  border-left: 1px solid #ccc;
+  position: absolute;
+}
+
+/* DEFAULT THEME */
+
+.cm-s-default .cm-keyword {color: #708;}
+.cm-s-default .cm-atom {color: #219;}
+.cm-s-default .cm-number {color: #164;}
+.cm-s-default .cm-def {color: #00f;}
+.cm-s-default .cm-variable,
+.cm-s-default .cm-punctuation,
+.cm-s-default .cm-property,
+.cm-s-default .cm-operator {}
+.cm-s-default .cm-variable-2 {color: #05a;}
+.cm-s-default .cm-variable-3 {color: #085;}
+.cm-s-default .cm-comment {color: #a50;}
+.cm-s-default .cm-string {color: #a11;}
+.cm-s-default .cm-string-2 {color: #f50;}
+.cm-s-default .cm-meta {color: #555;}
+.cm-s-default .cm-qualifier {color: #555;}
+.cm-s-default .cm-builtin {color: #30a;}
+.cm-s-default .cm-bracket {color: #997;}
+.cm-s-default .cm-tag {color: #170;}
+.cm-s-default .cm-attribute {color: #00c;}
+.cm-s-default .cm-header {color: blue;}
+.cm-s-default .cm-quote {color: #090;}
+.cm-s-default .cm-hr {color: #999;}
+.cm-s-default .cm-link {color: #00c;}
+
+.cm-negative {color: #d44;}
+.cm-positive {color: #292;}
+.cm-header, .cm-strong {font-weight: bold;}
+.cm-em {font-style: italic;}
+.cm-link {text-decoration: underline;}
+.cm-strikethrough {text-decoration: line-through;}
+
+.cm-s-default .cm-error {color: #f00;}
+.cm-invalidchar {color: #f00;}
+
+/* Default styles for common addons */
+
+div.CodeMirror span.CodeMirror-matchingbracket {color: #0f0;}
+div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #f22;}
+.CodeMirror-matchingtag { background: rgba(255, 150, 0, .3); }
+.CodeMirror-activeline-background {background: #e8f2ff;}
+
+/* STOP */
+
+/* The rest of this file contains styles related to the mechanics of
+   the editor. You probably shouldn't touch them. */
+
+.CodeMirror {
+  position: relative;
+  overflow: hidden;
+  background: white;
+}
+
+.CodeMirror-scroll {
+  overflow: scroll !important; /* Things will break if this is overridden */
+  /* 30px is the magic margin used to hide the element's real scrollbars */
+  /* See overflow: hidden in .CodeMirror */
+  margin-bottom: -30px; margin-right: -30px;
+  padding-bottom: 30px;
+  height: 100%;
+  outline: none; /* Prevent dragging from highlighting the element */
+  position: relative;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+.CodeMirror-sizer {
+  position: relative;
+  border-right: 30px solid transparent;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+/* The fake, visible scrollbars. Used to force redraw during scrolling
+   before actuall scrolling happens, thus preventing shaking and
+   flickering artifacts. */
+.CodeMirror-vscrollbar, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler {
+  position: absolute;
+  z-index: 6;
+  display: none;
+}
+.CodeMirror-vscrollbar {
+  right: 0; top: 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.CodeMirror-hscrollbar {
+  bottom: 0; left: 0;
+  overflow-y: hidden;
+  overflow-x: scroll;
+}
+.CodeMirror-scrollbar-filler {
+  right: 0; bottom: 0;
+}
+.CodeMirror-gutter-filler {
+  left: 0; bottom: 0;
+}
+
+.CodeMirror-gutters {
+  position: absolute; left: 0; top: 0;
+  z-index: 3;
+}
+.CodeMirror-gutter {
+  white-space: normal;
+  height: 100%;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  display: inline-block;
+  margin-bottom: -30px;
+  /* Hack to make IE7 behave */
+  *zoom:1;
+  *display:inline;
+}
+.CodeMirror-gutter-wrapper {
+  position: absolute;
+  z-index: 4;
+  height: 100%;
+}
+.CodeMirror-gutter-elt {
+  position: absolute;
+  cursor: default;
+  z-index: 4;
+}
+.CodeMirror-gutter-wrapper {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.CodeMirror-lines {
+  cursor: text;
+  min-height: 1px; /* prevents collapsing before first draw */
+}
+.CodeMirror pre {
+  /* Reset some styles that the rest of the page might have set */
+  -moz-border-radius: 0; -webkit-border-radius: 0; border-radius: 0;
+  border-width: 0;
+  background: transparent;
+  font-family: inherit;
+  font-size: inherit;
+  margin: 0;
+  white-space: pre;
+  word-wrap: normal;
+  line-height: inherit;
+  color: inherit;
+  z-index: 2;
+  position: relative;
+  overflow: visible;
+  -webkit-tap-highlight-color: transparent;
+}
+.CodeMirror-wrap pre {
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  word-break: normal;
+}
+
+.CodeMirror-linebackground {
+  position: absolute;
+  left: 0; right: 0; top: 0; bottom: 0;
+  z-index: 0;
+}
+
+.CodeMirror-linewidget {
+  position: relative;
+  z-index: 2;
+  overflow: auto;
+}
+
+.CodeMirror-widget {}
+
+.CodeMirror-code {
+  outline: none;
+}
+
+.CodeMirror-measure {
+  position: absolute;
+  width: 100%;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+.CodeMirror-measure pre { position: static; }
+
+.CodeMirror div.CodeMirror-cursor {
+  position: absolute;
+  border-right: none;
+  width: 0;
+}
+
+div.CodeMirror-cursors {
+  visibility: hidden;
+  position: relative;
+  z-index: 3;
+}
+.CodeMirror-focused div.CodeMirror-cursors {
+  visibility: visible;
+}
+
+.CodeMirror-selected { background: #d9d9d9; }
+.CodeMirror-focused .CodeMirror-selected { background: #d7d4f0; }
+.CodeMirror-crosshair { cursor: crosshair; }
+.CodeMirror ::selection { background: #d7d4f0; }
+.CodeMirror ::-moz-selection { background: #d7d4f0; }
+
+.cm-searching {
+  background: #ffa;
+  background: rgba(255, 255, 0, .4);
+}
+
+/* IE7 hack to prevent it from returning funny offsetTops on the spans */
+.CodeMirror span { *vertical-align: text-bottom; }
+
+/* Used to force a border model for a node */
+.cm-force-border { padding-right: .1px; }
+
+@media print {
+  /* Hide the cursor when printing */
+  .CodeMirror div.CodeMirror-cursors {
+    visibility: hidden;
+  }
+}
+
+/* See issue #2901 */
+.cm-tab-wrap-hack:after { content: ''; }
+
+/* Help users use markselection to safely style text background */
+span.CodeMirror-selectedtext { background: none; }
+
+/* Custom 'mirrormark' CodeMirror Theme */
+.cm-s-mirrormark {
+  font: 18px/1.6 "Source Code Pro", Consolas, Monaco, 'Andale Mono', monospace;
+  font-weight:300;
+  box-sizing: border-box;
+  z-index: 0;
+  padding: 64px 0 0 0;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0em;
+  right: 50%;
+}
+
+.CodeMirror-lines {
+  padding:1em 1em 0 1em;
+}
+
+.CodeMirror-sizer, .CodeMirror-sizer > div, .CodeMirror-lines, .CodeMirror-lines > div {
+  height: 100%;
+}
+
+.cm-s-mirrormark .cm-header-1 {
+  font-size: 36px;
+  line-height: 48px;
+  font-weight:  600;
+}
+
+.cm-s-mirrormark .cm-header-2 {
+  font-size: 30px;
+  line-height: 41px;
+  font-weight: 600;
+}
+
+.cm-s-mirrormark .cm-header-3 {
+  font-size:24px;
+  line-height:32px;
+  font-weight: 600;
+}
+
+.cm-s-mirrormark .cm-quote,
+.cm-s-mirrormark .cm-link,
+.cm-s-mirrormark .cm-tag,
+.cm-s-mirrormark .cm-string {
+  color: #888;
+}
+
+/* Toolbar Theme */
+.mirrormark-toolbar {
+	background: #3f3f3f;
+  box-shadow: 0px 1px 3px rgba(0,0,0,0.35);
+	/*border-bottom: 1px solid rgba(0,0,0,0.1);*/
+  position:fixed;
+  display:block;
+  z-index:10;
+	width: 100%;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+}
+
+/* First level */
+.mirrormark-toolbar li {
+  display: inline-block;
+  position: relative;
+  z-index: 1
+}
+
+.mirrormark-toolbar li.fullScreen {
+    float: right;
+}
+
+.mirrormark-toolbar li a {
+	background-color: #3f3f3f;
+	color: #dcdccc;
+	cursor: pointer;
+	display: block;
+	font-size: 24px;
+	height: 64px;
+	line-height: 64px;
+	text-align: center;
+	transition: color .2s linear;
+	width: 40px;
+}
+
+.mirrormark-toolbar li.has-nested:after {
+	content: '\2304';
+	color: #dcdccc;
+	position: absolute;
+	bottom: 3px;
+	right: 3px;
+	font-size: 11px;
+	transform:scale(1.3, 1)
+}
+.mirrormark-toolbar li:hover ul {
+	display: block;
+}
+
+/* Second Level */
+.mirrormark-toolbar ul {
+	background: #3f3f3f;
+	display: none;
+	position: absolute;
+	top: 41px;
+	width: 150px;
+	z-index: 1000;
+}
+
+.mirrormark-toolbar ul li {
+	float: none;
+	width: 100%;
+}
+
+.mirrormark-toolbar ul li a {
+	background: transparent;
+	color: #dcdccc !important;
+	font-family: "Helvetica Neue", sans-serif;
+	font-size: 12px;
+	height: auto;
+	line-height: normal;
+	padding: .25rem .75rem;
+	text-align: left;
+	width: auto;
+}
+
+.mirrormark-toolbar ul li:hover a {
+	color: rgb(180,180,160) !important;
+}
+
+.mirrormark-toolbar li:hover a,
+.mirrormark-toolbar li.has-nested:hover:after {
+	color: rgb(180,180,160);
+}
+
+.cm-s-mirrormark { text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
+.cm-s-mirrormark .CodeMirror-gutters { background: #3f3f3f !important; }
+.cm-s-mirrormark .CodeMirror-foldgutter-open, .CodeMirror-foldgutter-folded { color: #999; }
+.cm-s-mirrormark .CodeMirror-cursor { border-left: 1px solid white; }
+.cm-s-mirrormark { background-color: #3f3f3f; color: #dcdccc; }
+.cm-s-mirrormark span.cm-builtin { color: #dcdccc; font-weight: bold; }
+.cm-s-mirrormark span.cm-comment { color: #7f9f7f; }
+.cm-s-mirrormark span.cm-keyword { color: #f0dfaf; font-weight: bold; }
+.cm-s-mirrormark span.cm-atom { color: #bfebbf; }
+.cm-s-mirrormark span.cm-def { color: #dcdccc; }
+.cm-s-mirrormark span.cm-variable { color: #dfaf8f; }
+.cm-s-mirrormark span.cm-variable-2 { color: #dcdccc; }
+.cm-s-mirrormark span.cm-string { color: #cc9393; }
+.cm-s-mirrormark span.cm-string-2 { color: #cc9393; }
+.cm-s-mirrormark span.cm-number { color: #dcdccc; }
+.cm-s-mirrormark span.cm-tag { color: #93e0e3; }
+.cm-s-mirrormark span.cm-property { color: #dfaf8f; }
+.cm-s-mirrormark span.cm-attribute { color: #dfaf8f; }
+.cm-s-mirrormark span.cm-qualifier { color: #7cb8bb; }
+.cm-s-mirrormark span.cm-meta { color: #f0dfaf; }
+.cm-s-mirrormark span.cm-header { color: #f0efd0; }
+.cm-s-mirrormark span.cm-operator { color: #f0efd0; }
+.cm-s-mirrormark span.CodeMirror-matchingbracket { box-sizing: border-box; background: transparent; border-bottom: 1px solid; }
+.cm-s-mirrormark span.CodeMirror-nonmatchingbracket { border-bottom: 1px solid; background: none; }
+.cm-s-mirrormark .CodeMirror-activeline { background: #000000; }
+.cm-s-mirrormark .CodeMirror-activeline-background { background: #000000; }
+.cm-s-mirrormark div.CodeMirror-selected { background: #545454; }
+.cm-s-mirrormark .CodeMirror-focused div.CodeMirror-selected { background: #4f4f4f; }
+
+.CodeMirror-lint-mark-fleschKincaid {
+  border-bottom: 1px solid rgb(255,255,75);
+}
+
+.CodeMirror-lint-mark-weasel,
+.CodeMirror-lint-mark-hedge,
+.CodeMirror-lint-mark-buzzword,
+.CodeMirror-lint-mark-filler,
+.CodeMirror-lint-mark-cliche {
+  border-bottom: 1px solid rgb(50,75,255);
+}
+
+.CodeMirror-lint-mark-passive,
+.CodeMirror-lint-mark-adverb,
+.CodeMirror-lint-mark-wordy {
+  border-bottom: 1px solid rgb(200,35,200);
+}
+
+.CodeMirror-lint-mark-so,
+.CodeMirror-lint-mark-thereIs {
+  border-bottom: 1px solid rgb(75,255,75);
+}
+
+.CodeMirror-lint-mark-spelling,
+.CodeMirror-lint-mark-illusion {
+  border-bottom: 1px solid rgb(255,75,75);
+}
+
+.CodeMirror-lint-message-spelling:before,
+.CodeMirror-lint-message-illusion:before,
+.CodeMirror-lint-message-fleschKincaid:before {
+  content: "\f057";
+  font-family: 'FontAwesome';
+  padding-right:0.25em;
+  position: relative;
+  top: 1px;
+}
+
+.CodeMirror-lint-message-adverb:before,
+.CodeMirror-lint-message-weasel:before,
+.CodeMirror-lint-message-cliche:before,
+.CodeMirror-lint-message-wordy:before,
+.CodeMirror-lint-message-passive:before,
+.CodeMirror-lint-message-so:before,
+.CodeMirror-lint-message-thereIs:before,
+.CodeMirror-lint-message-buzzword:before,
+.CodeMirror-lint-message-filler:before,
+.CodeMirror-lint-message-hedge:before
+ {
+  content: "\f071";
+  font-family: 'FontAwesome';
+  padding-right:0.25em;
+  position: relative;
+  top: 1px;
+}
+
+/* The lint marker gutter */
+.CodeMirror-lint-markers {
+  width: 16px;
+}
+
+.CodeMirror-lint-tooltip {
+  background-color: #dcdccc;
+  border-radius:1px;
+  color:#3f3f3f;
+  font-family: 'Helvetica Neue';
+  font-weight:300;
+  font-size: 1.15em;
+  overflow: hidden;
+  padding: 0.5em;
+  position: fixed;
+  white-space: pre;
+  white-space: pre-wrap;
+  z-index: 100;
+  max-width: 600px;
+  opacity: 0;
+  transition: opacity .25s;
+  box-shadow:0px 0px 4px rgba(0,0,0,0.2);
+}
+
+html {
+  height: 100%;
+  font-size:16px;
+  width: 100%;
+  overflow: hidden;
+}
+
+html, body, main {
+  background-color:#3f3f3f;
+}
+
+body {
+  height: 100%;
+  padding: 0;
+  overflow: auto;
+  margin: 0;
+  -webkit-overflow-scrolling: touch;
+}
+
+main {
+  height:100%;
+}
+
+li.fullScreen {
+  display:none;
+}
