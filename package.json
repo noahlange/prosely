@@ -1,5 +1,6 @@
 {
   "name": "prosely",
+  "version": "0.2.0",
   "description": "A prose-linting Markdown editor for the 21st century.",
   "keywords": [
     "editor",
@@ -19,7 +20,6 @@
     "url": "http://noahlange.com"
   },
   "license": "MIT",
-  "version": "0.1.0",
   "main": "app/main.js",
   "dependencies": {
     "electron-prebuilt": "^0.33.0",

@@ -60,7 +60,17 @@ var mm = mirrorMark(document.getElementById('editable'), {
               message: suggestion.reason,
               severity: suggestion.type
             }
-          });
+          }).sort((a, b) => {
+            // Put Flesch-Kincaid at the beginning of the array so tooltips
+            // for other warnings are prioritized.            
+            var aIsFK = a.severity === 'readability';
+            var bIsFK = b.severity === 'readability';
+            if (!aIsFK && bIsFK) {
+              return -1;
+            } else if (aIsFK && !bIsFK) {
+              return 1;
+            } else return 0;            
+          })
           updateLinting(cm, found);
         })
         .catch(err => console.error(err));
