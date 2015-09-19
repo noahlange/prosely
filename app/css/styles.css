@@ -483,7 +483,7 @@ span.CodeMirror-selectedtext { background: none; }
 .cm-s-mirrormark div.CodeMirror-selected { background: #545454; }
 .cm-s-mirrormark .CodeMirror-focused div.CodeMirror-selected { background: #4f4f4f; }
 
-.CodeMirror-lint-mark-fleschKincaid {
+.CodeMirror-lint-mark-readability {
   border-bottom: 1px solid rgb(255,255,75);
 }
 
@@ -513,7 +513,7 @@ span.CodeMirror-selectedtext { background: none; }
 
 .CodeMirror-lint-message-spelling:before,
 .CodeMirror-lint-message-illusion:before,
-.CodeMirror-lint-message-fleschKincaid:before {
+.CodeMirror-lint-message-readability:before {
   content: "\f057";
   font-family: 'FontAwesome';
   padding-right:0.25em;
