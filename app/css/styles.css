@@ -589,3 +589,7 @@ main {
 li.fullScreen {
   display:none;
 }
+
+table.metadata pre {
+  font-size:12px;
+}

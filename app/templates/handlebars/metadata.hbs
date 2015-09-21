@@ -1,0 +1,40 @@
+{{!-- If we're dealing with a primitive, go ahead and render. --}}
+{{#if this.isPrimitive}}
+  {{ this.data }}
+{{/if}}
+
+{{!-- If we're dealing with an array, render a bunch of table cells because we're already in a row. --}}
+{{#if this.isArray}}
+  {{#each this.data }}
+    <td>{{metadata this }}</td>
+  {{/each}}
+{{/if}}
+
+{{!-- If we're dealing with an object, key-value hash, things about to get messy. --}}
+{{#if this.isObject }}
+  <table>
+    <thead>
+      <tr>
+      {{#each this.data}}
+        {{!-- If it's an array, make a column for each entry in the array. --}}
+        {{#if isArray}}
+          <th colspan="{{ value.length }}">{{ key }}</th>
+        {{else}}
+          <th>{{ key }}</th>
+        {{/if}}
+      {{/each}}
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+      {{#each this.data}}
+        {{#if isArray}}
+          {{metadata value}}
+        {{else}}
+          <td>{{metadata value}}</td>
+        {{/if}}
+      {{/each}}
+      </tr>
+    </tbody>
+  </table>
+{{/if}}

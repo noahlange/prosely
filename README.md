@@ -1,3 +1,5 @@
+![Prosely](http://i.imgur.com/Ecskz94.png?1)
+
 # Prosely
 > Text editing for the twenty-first century
 
@@ -7,13 +9,12 @@ WriteGood lints your prose as you work, offering feedback from over a dozen styl
 
 ## Installation
 
-As this is software in its infancy, there aren't any pre-packaged distributions of Prosely; you'll have to build it manually via git and npm. If you don't have those installed already, get out of here and install those first. Note that you'll need to rebuild dependencies with `electron-rebuild`.
+As this software is in its infancy, there aren't any pre-packaged distributions of Prosely; you'll have to build it manually via git and npm. If you don't have those installed already, install those first. Note that you may need to rebuild dependencies for electron with `electron-rebuild`.
 
 ```bash
 git clone https://github.com/noahlange/prosely.git
 cd prosely
 npm install && bower install
-./node_modules/.bin/electron-rebuild
 ```
 
 Once everything's put together, running Prosely is simple.
@@ -22,7 +23,13 @@ electron .
 ```
 
 ## Contributions
-I'd be more than happy to work on this with other folks. Just start hacking away
+I'd be more than happy to work on this with other folks. Just start hacking away!
+
+## Related Packages
+
+ - [Write-Good (as Promised)](https://github.com/noahlange/write-good-as-promised)
+ - [Write-Good (as Promised) - DataList](https://github.com/noahlange/wgap-datalist)
+ - [Write-Good (as Promised) - Flesch-Kincaid](https://github.com/noahlange/wgap-flesch-kincaid)
 
 ## License
 

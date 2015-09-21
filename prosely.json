@@ -1,5 +1,7 @@
 {
-  "prosely": {},
+  "prosely": {
+    "metadata": true
+  },
   "writeGood": {
     "illusion" : true,
     "so" : true,
@@ -10,9 +12,7 @@
     "tooWordy": true,
     "cliches": true,
     "frankenwords": true,
-    "fleschKincaid": {
-      "level": 15 
-    },
+    "readability": { "level": 15 },
     "spelling": true,
     "filler": true,
     "hedge": true,

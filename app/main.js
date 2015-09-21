@@ -12,7 +12,7 @@ var mainWindow = null;
 app.on('window-all-closed', function() {
   // On OS X it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
-  if (process.platform != 'darwin') {
+  if (process.platform !== 'darwin') {
     app.quit();
   }
 });
@@ -105,8 +105,9 @@ app.on('ready', function() {
           label: 'Reload',
           accelerator: 'CmdOrCtrl+R',
           click: function(item, focusedWindow) {
-            if (focusedWindow)
+            if (focusedWindow) {
               focusedWindow.reload();
+            }
           }
         },
         {
@@ -159,7 +160,7 @@ app.on('ready', function() {
       submenu: [
         {
           label: 'Learn More',
-          click: function() { require('shell').openExternal('http://electron.atom.io') }
+          click: function() { require('shell').openExternal('http://github.com/noahlange/prosely') }
         },
       ]
     },
